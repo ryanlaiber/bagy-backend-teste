@@ -1,0 +1,39 @@
+type Endereco {
+  rua: String!
+  bairro: String!
+  cidade: String!
+  estado: String!
+  pais: String!
+  cep: Int!
+  numero: String!
+}
+
+type Cliente {
+  id: ID!
+  nome: String!
+  email: String!
+  cpf: Int!
+  dataNasc: String!
+  endereco: Endereco!
+}
+
+type Query {
+  clientes: [Cliente!]!
+  cliente(id: ID!): Cliente
+}
+
+type Mutation {
+  createCliente(
+    nome: String!,
+    email: String!,
+    cpf: Int!,
+    dataNasc: String!,
+    rua: String!
+    bairro: String!
+    cidade: String!
+    estado: String!
+    pais: String!
+    cep: Int!
+    numero: String!
+  ): Cliente
+}

@@ -12,7 +12,6 @@ module.exports = {
     clientes: () => exClientes,
     cliente: (_, { id }) => {
       const result = exClientes.find(e => e.id.toString() === id);
-      console.log(result);
       if (result) return result;
       return { path: "id", message: 'Cliente não encontrado' };
     },

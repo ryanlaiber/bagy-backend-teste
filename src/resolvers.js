@@ -1,9 +1,21 @@
 const exClientes = require('../mocClientes');
 
 module.exports = {
+  ClienteResult: {
+    __resolveType(cliente) {
+      if (cliente.path) return 'Error';
+      return 'Cliente';
+    }
+  },
+
   Query: {
     clientes: () => exClientes,
-    cliente: (_, { id }) => exClientes.find(e => e.id.toString() === id),
+    cliente: (_, { id }) => {
+      const result = exClientes.find(e => e.id.toString() === id);
+      console.log(result);
+      if (result) return result;
+      return { path: "id", message: 'Cliente não encontrado' };
+    },
   },
 
   Mutation: {

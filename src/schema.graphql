@@ -17,9 +17,16 @@ type Cliente {
   endereco: Endereco!
 }
 
+type Error {
+  path: String!
+  message: String!
+}
+
+union ClienteResult = Cliente | Error
+
 type Query {
   clientes: [Cliente!]!
-  cliente(id: ID!): Cliente
+  cliente(id: ID!): ClienteResult!
 }
 
 type Mutation {
@@ -35,5 +42,5 @@ type Mutation {
     pais: String!
     cep: Int!
     numero: String!
-  ): Cliente
+  ): ClienteResult
 }

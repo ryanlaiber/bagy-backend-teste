@@ -34,4 +34,4 @@ const validaCpf = (cpf) => {
         return false;
 }
 
-module.exports = validaCpf;
+export default validaCpf;

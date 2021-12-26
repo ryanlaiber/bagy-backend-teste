@@ -1,6 +1,6 @@
-const exClientes = require('../mocClientes');
+import exClientes from '../mocClientes';
 
-module.exports = {
+const resolvers = {
   ClienteResult: {
     __resolveType(cliente) {
       if (cliente.path) return 'Error';
@@ -21,3 +21,5 @@ module.exports = {
     createCliente: () => {},
   },
 }
+
+export default resolvers;

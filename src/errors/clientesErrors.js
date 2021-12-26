@@ -13,7 +13,7 @@ const dataNascError = {
   message: 'Necessário inserir data de nascimento '
 };
 
-module.exports = {
+export default {
   nomeError,
   cpfError,
   dataNascError,

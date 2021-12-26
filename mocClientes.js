@@ -1,4 +1,4 @@
-module.exports = [
+const exClientes = [
   {
     id: 5,
     nome: 'Ryan Laiber',
@@ -32,3 +32,5 @@ module.exports = [
     },
   }
 ]
+
+export default exClientes;

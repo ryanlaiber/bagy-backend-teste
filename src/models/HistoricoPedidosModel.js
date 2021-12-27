@@ -17,12 +17,40 @@ const create = async ({ quantidade, pedidoId, produtoId }) => {
   return lastID;
 };
 
-
-
-const exHistoricoPedido = {
-  quantidade: 20,
-  pedidoId: 1,
-  produtoId: 2,
+const deleteByPedidoId = async (pedidoId) => {
+  const db = await openDb();
+  await db.run(
+    `DELETE FROM historicoPedidos
+    WHERE pedidoId = ?`,
+    [pedidoId],
+    (err) => {
+      if (err) return {
+        path: 'model historicoPedidos deleteByPedidoId',
+        message: err,
+      };
+    }
+  );
 };
 
-create(exHistoricoPedido);
+const getAllByPedidoId = async (pedidoId) => {
+  const db = await openDb();
+  const historico = await db.all(
+    `SELECT * FROM historicoPedidos
+    WHERE pedidoId = ?`,
+    [pedidoId],
+    (err) => {
+      if (err) return {
+        path: 'model historicoPedidos getAllByPedidoId',
+        message: err,
+      };
+    }
+  );
+
+  return historico;
+};
+
+export default {
+  create,
+  deleteByPedidoId,
+  getAllByPedidoId,
+};

@@ -27,7 +27,7 @@ CREATE TABLE "produtos" (
 
 CREATE TABLE "pedidos" (
 	"id"	INTEGER NOT NULL UNIQUE,
-	"dataCriacao"	TEXT NOT NULL,
+	"dataCriacao"	TEXT,
 	"parcelas"	INTEGER NOT NULL,
 	"compradorId"	INTEGER NOT NULL,
 	"status"	TEXT NOT NULL,
@@ -48,6 +48,7 @@ UPDATE pedidos
 SET
 dataCriacao = datetime('now')
 WHERE id = NEW.id;
+END;
 
 -- Down
 

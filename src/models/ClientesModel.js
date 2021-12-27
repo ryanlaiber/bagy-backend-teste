@@ -14,7 +14,7 @@ const create = async ({
   numero,
 }) => {
   const db = await openDb();
-  const novoCliente = await db.run(
+  await db.run(
     `INSERT INTO clientes (nome, email, cpf, dataNasc, rua, bairro, cidade, estado, pais, cep, numero)
     VALUES(?,?,?,?,?,?,?,?,?,?,?)`,
     [nome, email, cpf, dataNasc, rua, bairro, cidade, estado, pais, cep, numero],
@@ -114,20 +114,6 @@ const deleteById = async (id) => {
       };
     }
   );
-};
-
-const exCliente = {
-nome: 'nome1', 
-email: 'teste1@email.com', 
-cpf: '15442311723', 
-dataNasc: '27/10/1888', 
-rua: 'rua teste', 
-bairro: 'bairro teste', 
-cidade: 'cidade teste', 
-estado: 'es', 
-pais: 'br', 
-cep: 29280000, 
-numero: 'N/A'
 };
 
 module.exports = {

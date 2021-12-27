@@ -33,4 +33,27 @@ const exClientes = [
   }
 ]
 
+const exCliente = {
+  nome: 'nome1', 
+  email: 'teste1@email.com', 
+  cpf: '15442311723', 
+  dataNasc: '27/10/1888', 
+  rua: 'rua teste', 
+  bairro: 'bairro teste', 
+  cidade: 'cidade teste', 
+  estado: 'es', 
+  pais: 'br', 
+  cep: 29280000, 
+  numero: 'N/A'
+};
+
+const exProduto = {
+  nome: 'carrinho',
+  imagem: 'https://linkimagem.com.br/imagem',
+  descricao: 'descricao legal',
+  peso: 100,
+  preco: 59.90,
+  estoque: 50,
+};
+
 export default exClientes;

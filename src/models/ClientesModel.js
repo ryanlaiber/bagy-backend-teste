@@ -25,13 +25,11 @@ const create = async ({
       };
     }
   );
-
-  console.log(novoCliente);
 };
 
 const getByEmail = async (email) => {
   const db = await openDb();
-  const cliente = await db.run(
+  const clientes = await db.all(
     `SELECT * FROM clientes
     WHERE email = ?`,
     [email],
@@ -42,7 +40,24 @@ const getByEmail = async (email) => {
       };
     }
   );
-  console.log(cliente);
+
+  return clientes;
+};
+
+const getById = async (id) => {
+  const db = await openDb();
+  const cliente = await db.get(
+    `SELECT * FROM clientes
+    WHERE id = ?`,
+    [id],
+    (err) => {
+      if (err) return {
+        path: 'model clientes getById',
+        message: err,
+      };
+    }
+  );
+
   return cliente;
 };
 
@@ -79,7 +94,22 @@ const updateById = async (
     [nome, email, cpf, dataNasc, rua, bairro, cidade, estado, pais, cep, numero, id],
     (err) => {
       if (err) return {
-        path: 'model clientes getByEmail',
+        path: 'model clientes updateById',
+        message: err,
+      };
+    }
+  );
+};
+
+const deleteById = async (id) => {
+  const db = await openDb();
+  await db.run(
+    `DELETE FROM clientes
+    WHERE id = ?`,
+    [id],
+    (err) => {
+      if (err) return {
+        path: 'model clientes deleteById',
         message: err,
       };
     }
@@ -99,9 +129,11 @@ pais: 'br',
 cep: 29280000, 
 numero: 'N/A'
 };
-getByEmail('teste1@email.com');
+
 module.exports = {
   create,
   getByEmail,
   updateById,
+  getById,
+  deleteById,
 };

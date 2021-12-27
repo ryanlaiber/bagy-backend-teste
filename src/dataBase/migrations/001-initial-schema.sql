@@ -51,6 +51,15 @@ dataCriacao = datetime('now')
 WHERE id = NEW.id;
 END;
 
+CREATE TRIGGER updateProdutos AFTER INSERT   
+ON historicoPedidos
+BEGIN  
+UPDATE produtos
+SET
+estoque = produtos.estoque - NEW.quantidade
+WHERE produtos.id = NEW.produtoId;
+END;
+
 -- Down
 
 DROP TABLE clientes;

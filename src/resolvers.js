@@ -1,4 +1,4 @@
-import exClientes from '../mocClientes';
+import mocs from '../mocs';
 
 const resolvers = {
   ClienteResult: {
@@ -9,9 +9,9 @@ const resolvers = {
   },
 
   Query: {
-    clientes: () => exClientes,
+    clientes: () => mocs.exClientes,
     cliente: (_, { id }) => {
-      const result = exClientes.find(e => e.id.toString() === id);
+      const result = mocs.exClientes.find(e => e.id.toString() === id);
       if (result) return result;
       return { path: "id", message: 'Cliente não encontrado' };
     },

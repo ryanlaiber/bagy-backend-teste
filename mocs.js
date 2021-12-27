@@ -62,4 +62,9 @@ const exPedido = {
   status: 'aprovado',
 };
 
-export default exClientes;
+export default {
+  exClientes,
+  exCliente,
+  exPedido,
+  exProduto,
+};

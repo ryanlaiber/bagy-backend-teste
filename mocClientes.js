@@ -56,4 +56,10 @@ const exProduto = {
   estoque: 50,
 };
 
+const exPedido = {
+  parcelas: 2,
+  compradorId: 1,
+  status: 'aprovado',
+};
+
 export default exClientes;

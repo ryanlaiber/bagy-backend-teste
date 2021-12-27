@@ -63,17 +63,19 @@ const getById = async (id) => {
 
 const updateById = async (
   id,
-  nome,
-  email,
-  cpf,
-  dataNasc,
-  rua,
-  bairro,
-  cidade,
-  estado,
-  pais,
-  cep,
-  numero,
+  {
+    nome,
+    email,
+    cpf,
+    dataNasc,
+    rua,
+    bairro,
+    cidade,
+    estado,
+    pais,
+    cep,
+    numero,
+  }
 ) => {
   const db = await openDb();
   await db.run(

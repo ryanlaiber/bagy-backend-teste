@@ -24,12 +24,14 @@ const create = async ({
 
 const updateById = async (
   id,
-  nome,
-  imagem,
-  descricao,
-  peso,
-  preco,
-  estoque
+  {
+    nome,
+    imagem,
+    descricao,
+    peso,
+    preco,
+    estoque,
+  }
 ) => {
   const db = await openDb();
   await db.run(

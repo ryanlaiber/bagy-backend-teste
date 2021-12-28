@@ -135,9 +135,13 @@ const updateById = async (id, cliente) => {
   };
 };
 
-const main = async () => {
-  const result = await updateById(1,mocs.exCliente);
-  console.log(result);
-}
+const deleteById = async (id) => {
+  await ClientesModel.deleteById(id);
+};
 
-main();
+export default {
+  create,
+  updateById,
+  deleteById,
+  getById,
+};

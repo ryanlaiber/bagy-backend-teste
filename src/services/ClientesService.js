@@ -1,5 +1,4 @@
 import ClientesModel from '../models/ClientesModel';
-import mocs from '../../mocs';
 import Error from '../errors/clientesErrors';
 import validaCpf from '../helpers/cpfValidate';
 

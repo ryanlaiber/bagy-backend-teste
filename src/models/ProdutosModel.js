@@ -10,7 +10,7 @@ const create = async ({
   estoque
 }) => {
   const db = await openDb();
-  await db.run(
+  const { lastID } = await db.run(
     `INSERT INTO produtos (nome, imagem, descricao, peso, preco, estoque)
     VALUES (?, ?, ?, ?, ?, ?)`,
     [nome, imagem, descricao, peso, preco, estoque],
@@ -21,6 +21,7 @@ const create = async ({
       };
     }
   );
+  return lastID;
 };
 
 const updateById = async (
@@ -87,9 +88,27 @@ const getById = async (id) => {
   return produto;
 }
 
+const getByNome = async (nome) => {
+  const db = await openDb();
+  const produto = await db.get(
+    `SELECT * FROM produtos
+    WHERE nome = ?`,
+    [nome],
+    (err) => {
+      if (err) return {
+        path: 'model produtos getById',
+        message: err,
+      };
+    }
+  );
+
+  return produto;
+}
+
 export default {
   create,
   updateById,
   deleteById,
   getById,
+  getByNome,
 };

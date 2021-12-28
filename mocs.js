@@ -48,7 +48,7 @@ const exCliente = {
 };
 
 const exProduto = {
-  nome: 'carrinho',
+  nome: 'aviaozinho',
   imagem: 'https://linkimagem.com.br/imagem',
   descricao: 'descricao legal',
   peso: 100,

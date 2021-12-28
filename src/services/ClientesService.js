@@ -3,11 +3,20 @@ import mocs from '../../mocs';
 import Error from '../errors/clientesErrors';
 import validaCpf from '../helpers/cpfValidate';
 
-const validate  = async ({
+const validate  = async (metodo, {
   nome, email, cpf, dataNasc, rua, bairro, cidade, estado, pais, cep, numero,
-}) => {
+}, id = 0) => {
+  if (metodo === 'update') {
+    const checkId = await ClientesModel.getById(id);
+    if (!checkId) return Error.naoEncontradoError;
+  }
   const cliente = await ClientesModel.getByEmail(email);
-  const emailUnico = cliente.length === 0;
+  let emailUnico = false;
+  if (metodo === 'create') {
+    emailUnico = cliente.length === 0;
+  } else if (id === cliente[0].id) {
+    emailUnico = true;
+  };
   const dataRegex = /^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/;
   const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
   switch (false) {
@@ -54,8 +63,8 @@ const create = async (cliente) => {
     cep,
     numero,
   } = cliente;
-  const isValid = await validate(cliente);
-  if (isValid) return isValid;
+  const notValid = await validate('create', cliente);
+  if (notValid) return notValid;
 
   const id = await ClientesModel.create(cliente);
   if (id) return {
@@ -89,8 +98,45 @@ const getById = async (id) => {
   return Error.naoEncontradoError;
 }
 
+const updateById = async (id, cliente) => {
+  const {
+    nome,
+    email,
+    cpf,
+    dataNasc,
+    rua,
+    bairro,
+    cidade,
+    estado,
+    pais,
+    cep,
+    numero,
+  } = cliente;
+  const notValid = await validate('update', cliente, id);
+  if (notValid) return notValid;
+
+  await ClientesModel.updateById(id, cliente);
+
+  return {
+    id,
+    nome,
+    email,
+    cpf,
+    dataNasc,
+    endereco: {
+      rua,
+      bairro,
+      cidade,
+      estado,
+      pais,
+      cep,
+      numero,
+    },
+  };
+};
+
 const main = async () => {
-  const result = await getById(5);
+  const result = await updateById(1,mocs.exCliente);
   console.log(result);
 }
 

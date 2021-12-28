@@ -50,7 +50,7 @@ const exCliente = {
 const exProduto = {
   nome: 'aviaozinho',
   imagem: 'https://linkimagem.com.br/imagem',
-  descricao: 'descricao legal',
+  descricao: 'descricao legal demais',
   peso: 100,
   preco: 59.90,
   estoque: 50,

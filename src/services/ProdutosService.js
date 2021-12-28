@@ -4,11 +4,14 @@ import mocs from '../../mocs';
 
 const validate = async (metodo, {
   nome, imagem, descricao, peso, preco, estoque
-}) => {
+}, id = 0) => {
   if (metodo === 'create') {
     const checkNome = await ProdutosModel.getByNome(nome);
     if (checkNome) return Error.nomeUnicoError;
-  }
+  } else if (metodo === 'update') {
+    const checkNome = await ProdutosModel.getByNome(nome);
+    if (checkNome.id !== id) return Error.nomeUnicoError;
+  };
   switch (false) {
     case (nome):
       return Error.nomeError;
@@ -52,6 +55,35 @@ const create = async (produto) => {
   };
 };
 
+const deleteById = async (id) => {
+  await ProdutosModel.deleteById(id);
+};
+
+const updateById = async (id, produto) => {
+  const {
+    nome,
+    imagem,
+    descricao,
+    peso,
+    preco,
+    estoque,
+  } = produto;
+  const notValid = await validate('update', produto, id);
+  if (notValid) return notValid;
+
+  await ProdutosModel.updateById(id, produto);
+
+  return {
+    id,
+    nome,
+    imagem,
+    descricao,
+    peso,
+    preco,
+    estoque,
+  };
+};
+
 const getById = async (id) => {
   const produto = await ProdutosModel.getById(id);
 
@@ -61,7 +93,7 @@ const getById = async (id) => {
 };
 
 const main = async () => {
-  const result = await getById(2);
+  const result = await updateById(3, mocs.exProduto);
   console.log(result);
 }
 main();

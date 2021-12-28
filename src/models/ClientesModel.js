@@ -14,7 +14,7 @@ const create = async ({
   numero,
 }) => {
   const db = await openDb();
-  await db.run(
+  const { lastID } = await db.run(
     `INSERT INTO clientes (nome, email, cpf, dataNasc, rua, bairro, cidade, estado, pais, cep, numero)
     VALUES(?,?,?,?,?,?,?,?,?,?,?)`,
     [nome, email, cpf, dataNasc, rua, bairro, cidade, estado, pais, cep, numero],
@@ -25,6 +25,7 @@ const create = async ({
       };
     }
   );
+  return lastID;
 };
 
 const getByEmail = async (email) => {

@@ -18,6 +18,11 @@ const emailError = {
   message: 'Necessário inserir email válido'
 };
 
+const emailUnicoError = {
+  path: 'email',
+  message: 'Email já cadastrado'
+};
+
 const ruaError = {
   path: 'rua',
   message: 'Necessário inserir rua'
@@ -41,16 +46,21 @@ const paisError = {
 const estadoError = {
   path: 'estado',
   message: 'Necessário inserir estado'
-}
+};
 
 const cidadeError = {
   path: 'cidade',
   message: 'Necessário inserir cidade'
-}
+};
 
 const numeroError = {
   path: 'numero',
   message: 'Necessário inserir número'
+};
+
+const naoEncontradoError = {
+  path: 'id',
+  message: 'Cliente não encontrado'
 }
 
 export default {
@@ -65,4 +75,6 @@ export default {
   numeroError,
   estadoError,
   paisError,
+  emailUnicoError,
+  naoEncontradoError,
 };

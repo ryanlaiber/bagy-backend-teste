@@ -33,6 +33,11 @@ const nomeUnicoError = {
   message: 'Necessário inserir nome único',
 };
 
+const naoEncontradoError = {
+  path: 'id',
+  message: 'Produto não encontrado',
+};
+
 export default {
   nomeError,
   imagemError,
@@ -41,4 +46,5 @@ export default {
   precoError,
   estoqueError,
   nomeUnicoError,
+  naoEncontradoError,
 };

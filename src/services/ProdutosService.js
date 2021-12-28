@@ -52,8 +52,16 @@ const create = async (produto) => {
   };
 };
 
+const getById = async (id) => {
+  const produto = await ProdutosModel.getById(id);
+
+  if (produto) return produto;
+
+  return Error.naoEncontradoError;
+};
+
 const main = async () => {
-  const result = await create(mocs.exProduto);
+  const result = await getById(2);
   console.log(result);
 }
 main();

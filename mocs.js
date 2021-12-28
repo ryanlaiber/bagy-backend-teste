@@ -37,7 +37,7 @@ const exCliente = {
   nome: 'nome1', 
   email: 'teste1@email.com', 
   cpf: '15442311723', 
-  dataNasc: '27/10/1888', 
+  dataNasc: '27/10/1993', 
   rua: 'rua teste', 
   bairro: 'bairro teste', 
   cidade: 'cidade teste', 

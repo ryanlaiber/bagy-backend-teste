@@ -118,7 +118,7 @@ const deleteById = async (id) => {
   );
 };
 
-module.exports = {
+export default {
   create,
   getByEmail,
   updateById,

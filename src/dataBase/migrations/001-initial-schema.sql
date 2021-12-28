@@ -38,6 +38,7 @@ CREATE TABLE "historicoPedidos" (
 	"id"	INTEGER NOT NULL UNIQUE,
   "quantidade" INTEGER NOT NULL,
 	"produtoId"	INTEGER NOT NULL,
+	"compradorId" INTEGER NOT NULL,
 	"pedidoId"	INTEGER NOT NULL,
 	PRIMARY KEY("id")
 );

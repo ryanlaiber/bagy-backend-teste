@@ -89,10 +89,37 @@ const getByCompradorId = async (compradorId) => {
   return pedidos;
 };
 
+const resumoPedido = async (pedidoId) => {
+  const db = await openDb();
+  const result = await db.get(
+    `SELECT 
+    c.nome AS cliente,
+    h.pedidoId AS pedido,
+    (SELECT SUM(p.preco*hs.quantidade) FROM produtos AS p
+    INNER JOIN historicoPedidos AS hs ON p.id = hs.produtoId
+    WHERE hs.compradorId = c.id
+    GROUP BY hs.pedidoId) AS montante
+    FROM clientes AS c
+    INNER JOIN historicoPedidos AS h ON c.id = h.compradorId
+    WHERE h.pedidoId = ?
+    GROUP BY pedido`,
+    [pedidoId],
+    (err) => {
+      if (err) return {
+        path: 'model pedidos getByCompradorId',
+        message: err,
+      };
+    }
+  );
+
+  return result;
+};
+
 export default {
   create,
   deleteById,
   updateById,
   getById,
   getByCompradorId,
+  resumoPedido,
 };

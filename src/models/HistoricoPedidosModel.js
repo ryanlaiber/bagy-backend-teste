@@ -1,11 +1,11 @@
 import { openDb } from '../dataBase/dbConfig';
 
-const create = async ({ quantidade, pedidoId, produtoId }) => {
+const create = async ({ quantidade, pedidoId, produtoId, compradorId }) => {
   const db = await openDb();
   const { lastID } = await db.run(
-    `INSERT INTO historicoPedidos (quantidade, pedidoId, produtoId)
+    `INSERT INTO historicoPedidos (quantidade, pedidoId, produtoId, compradorId)
     VALUES (?, ?, ?)`,
-    [quantidade, pedidoId, produtoId],
+    [quantidade, pedidoId, produtoId, compradorId],
     (err) => {
       if (err) return {
         path: 'model historicoPedidos create',

@@ -1,5 +1,4 @@
 import { openDb } from '../dataBase/dbConfig';
-import mocs from '../../mocs';
 
 const create = async ({
   parcelas,
@@ -116,6 +115,15 @@ const resumoPedido = async (pedidoId) => {
   return result;
 };
 
+const getAll = async () => {
+  const db = await openDb();
+  const pedidos = await db.all(
+    `SELECT * FROM pedidos`
+  );
+
+  return pedidos;
+}
+
 export default {
   create,
   deleteById,
@@ -123,4 +131,5 @@ export default {
   getById,
   getByCompradorId,
   resumoPedido,
+  getAll,
 };

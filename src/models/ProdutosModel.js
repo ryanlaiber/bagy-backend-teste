@@ -105,10 +105,20 @@ const getByNome = async (nome) => {
   return produto;
 }
 
+const getAll = async () => {
+  const db = await openDb();
+  const produtos = await db.all(
+    `SELECT * FROM produtos`
+  );
+
+  return produtos;
+}
+
 export default {
   create,
   updateById,
   deleteById,
   getById,
   getByNome,
+  getAll,
 };

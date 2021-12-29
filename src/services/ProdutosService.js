@@ -92,9 +92,21 @@ const getById = async (id) => {
   return Error.naoEncontradoError;
 };
 
+const getAll = async () => {
+  const produtos = await ProdutosModel.getAll();
+
+  if (produtos.length !== 0) return produtos;
+
+  return {
+    path: 'produtos',
+    message: 'Ainda não existem produtos cadastrados',
+  };
+}
+
 export default {
   create,
   deleteById,
   updateById,
   getById,
+  getAll,
 };

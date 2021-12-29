@@ -1,24 +1,30 @@
-import mocs from '../mocs';
+import ClientesController from './controllers/ClientesController';
+// import mocs from '../mocs';
 
 const resolvers = {
   ClienteResult: {
     __resolveType(cliente) {
-      if (cliente.path) return 'Error';
+      if (cliente.err) return 'objErr';
+      return 'Clientes';
+    }
+  },
+
+  ClienteIdResult: {
+    __resolveType(cliente) {
+      if (cliente.err) return 'objErr';
       return 'Cliente';
     }
   },
 
   Query: {
-    clientes: () => mocs.exClientes,
-    cliente: (_, { id }) => {
-      const result = mocs.exClientes.find(e => e.id.toString() === id);
-      if (result) return result;
-      return { path: "id", message: 'Cliente não encontrado' };
-    },
+    clientes: ClientesController.getAll,
+    cliente: ClientesController.getById,
   },
 
   Mutation: {
-    createCliente: () => {},
+    createCliente: ClientesController.create,
+    updateCliente: ClientesController.updateById,
+    deleteCliente: ClientesController.deleteById,
   },
 }
 

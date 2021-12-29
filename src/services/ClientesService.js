@@ -5,12 +5,13 @@ import validaCpf from '../helpers/cpfValidate';
 const validate  = async (metodo, {
   nome, email, cpf, dataNasc, rua, bairro, cidade, estado, pais, cep, numero,
 }, id = 0) => {
+  let emailUnico = false;
   if (metodo === 'update') {
     const checkId = await ClientesModel.getById(id);
     if (!checkId) return Error.naoEncontradoError;
+    emailUnico = true;
   }
   const cliente = await ClientesModel.getByEmail(email);
-  let emailUnico = false;
   if (metodo === 'create') {
     emailUnico = cliente.length === 0;
   } else if (id === cliente[0].id) {
@@ -138,9 +139,21 @@ const deleteById = async (id) => {
   await ClientesModel.deleteById(id);
 };
 
+const getAll = async () => {
+  const clientes = await ClientesModel.getAll();
+
+  if (clientes.length !== 0) return clientes;
+
+  return {
+    path: 'clientes',
+    message: 'Ainda não existem clientes cadastrados',
+  };
+}
+
 export default {
   create,
   updateById,
   deleteById,
   getById,
+  getAll,
 };

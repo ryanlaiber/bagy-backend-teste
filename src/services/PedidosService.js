@@ -130,10 +130,22 @@ const getResumoById = async (id) => {
   return Error.naoEncontradoError;
 };
 
+const getAll = async () => {
+  const pedidos = await PedidosModel.getAll();
+
+  if (pedidos.length !== 0) return pedidos;
+
+  return {
+    path: 'pedidos',
+    message: 'Ainda não existem pedidos cadastrados',
+  };
+}
+
 export default {
   create,
   deleteById,
   updateById,
   getById,
   getResumoById,
+  getAll,
 };

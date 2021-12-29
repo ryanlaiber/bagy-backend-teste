@@ -12,9 +12,42 @@ type Cliente {
   id: ID!
   nome: String!
   email: String!
-  cpf: Int!
+  cpf: String!
   dataNasc: String!
   endereco: Endereco!
+}
+
+input paramCliente {
+  nome: String!
+  email: String!
+  cpf: String!
+  dataNasc: String!
+  rua: String!
+  bairro: String!
+  cidade: String!
+  estado: String!
+  pais: String!
+  cep: Int!
+  numero: String!
+}
+
+type oneCliente {
+  id: ID!
+  nome: String!
+  email: String!
+  cpf: String!
+  dataNasc: String!
+  rua: String!
+  bairro: String!
+  cidade: String!
+  estado: String!
+  pais: String!
+  cep: Int!
+  numero: String!
+}
+
+type Clientes {
+  result: [oneCliente!]!
 }
 
 type Error {
@@ -22,25 +55,20 @@ type Error {
   message: String!
 }
 
-union ClienteResult = Cliente | Error
+type objErr {
+  err: Error!
+}
+
+union ClienteResult = Clientes | objErr
+union ClienteIdResult = Cliente | objErr
 
 type Query {
-  clientes: [Cliente!]!
-  cliente(id: ID!): ClienteResult!
+  clientes: ClienteResult!
+  cliente(id: ID!): ClienteIdResult!
 }
 
 type Mutation {
-  createCliente(
-    nome: String!,
-    email: String!,
-    cpf: Int!,
-    dataNasc: String!,
-    rua: String!
-    bairro: String!
-    cidade: String!
-    estado: String!
-    pais: String!
-    cep: Int!
-    numero: String!
-  ): ClienteResult
+  createCliente(cliente: paramCliente!): ClienteIdResult!
+  updateCliente(id: ID!, dados: paramCliente!): ClienteIdResult!
+  deleteCliente(id: ID!): String!
 }

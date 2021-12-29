@@ -47,7 +47,18 @@ const getByEmail = async (email) => {
 
 const getById = async (id) => {
   const db = await openDb();
-  const cliente = await db.get(
+  const {
+    nome,
+    email,
+    cpf,
+    dataNasc,
+    rua,
+    bairro,
+    cidade,
+    estado,
+    pais,
+    cep,
+    numero } = await db.get(
     `SELECT * FROM clientes
     WHERE id = ?`,
     [id],
@@ -59,7 +70,22 @@ const getById = async (id) => {
     }
   );
 
-  return cliente;
+  return {
+    id,
+    nome,
+    email,
+    cpf,
+    dataNasc,
+    endereco: {
+      rua,
+      bairro,
+      cidade,
+      estado,
+      pais,
+      cep,
+      numero,
+    },
+  };
 };
 
 const updateById = async (
@@ -119,10 +145,20 @@ const deleteById = async (id) => {
   );
 };
 
+const getAll = async () => {
+  const db = await openDb();
+  const clientes = await db.all(
+    `SELECT * FROM clientes`
+  );
+
+  return clientes;
+}
+
 export default {
   create,
   getByEmail,
   updateById,
   getById,
   deleteById,
+  getAll,
 };

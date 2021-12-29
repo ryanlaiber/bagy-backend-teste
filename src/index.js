@@ -1,7 +1,10 @@
 import { GraphQLServer } from 'graphql-yoga';
 import { openDb } from './dataBase/dbConfig';
+import dotenv from 'dotenv';
 import path from 'path';
 import resolvers from './resolvers';
+
+dotenv.config();
 
 const server = new GraphQLServer({
   typeDefs: path.resolve(__dirname, 'schema.graphql'),

@@ -94,6 +94,7 @@ const resumoPedido = async (pedidoId) => {
   const result = await db.get(
     `SELECT 
     c.nome AS cliente,
+    c.email AS email,
     h.pedidoId AS pedido,
     (SELECT SUM(p.preco*hs.quantidade) FROM produtos AS p
     INNER JOIN historicoPedidos AS hs ON p.id = hs.produtoId

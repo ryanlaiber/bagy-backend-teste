@@ -92,8 +92,9 @@ const getById = async (id) => {
   return Error.naoEncontradoError;
 };
 
-const main = async () => {
-  const result = await updateById(3, mocs.exProduto);
-  console.log(result);
-}
-main();
+export default {
+  create,
+  deleteById,
+  updateById,
+  getById,
+};

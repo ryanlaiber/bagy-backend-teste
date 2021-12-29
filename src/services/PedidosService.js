@@ -4,7 +4,6 @@ import ProdutosModel from '../models/ProdutosModel';
 import HistoricoPedidosModel from '../models/HistoricoPedidosModel';
 import pedidoEmail from '../helpers/emailPedido';
 import Error from '../errors/pedidosErrors';
-import mocs from '../../mocs';
 
 const validatePedido = async ({
   parcelas,
@@ -91,13 +90,50 @@ const create = async (pedido, produtos) => {
   };
 };
 
-const exProdutos = [
-  { quantidade: 1, id: 2 },
-  { quantidade: 2, id: 1 }
-];
+const deleteById = async (id) => {
+  await PedidosModel.deleteById(id)
+};
 
-const main = async () => {
-  const result = await create(mocs.exPedido, exProdutos);
-  console.log(result);
-}
-main();
+const getById = async (id) => {
+  const pedido = await PedidosModel.getById(id);
+  if (pedido) return pedido;
+
+  return Error.naoEncontradoError;
+};
+
+const updateById = (id, pedido) => {
+  const {
+    parcelas,
+    compradorId,
+    status,
+  } = pedido;
+
+  const notValidPedido = await validatePedido(pedido);
+
+  if (notValidPedido) return notValidPedido;
+
+  await PedidosModel.updateById(id, pedido);
+
+  return {
+    id,
+    parcelas,
+    compradorId,
+    status,
+  };
+};
+
+const getResumoById = async (id) => {
+  const resumo = await PedidosModel.getResumoById(id);
+
+  if (resumo) return resumo;
+
+  return Error.naoEncontradoError;
+};
+
+export default {
+  create,
+  deleteById,
+  updateById,
+  getById,
+  getResumoById,
+};

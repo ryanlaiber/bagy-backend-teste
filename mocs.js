@@ -62,6 +62,11 @@ const exPedido = {
   status: 'aprovado',
 };
 
+const exProdutos = [
+  { quantidade: 1, id: 2 },
+  { quantidade: 2, id: 1 }
+];
+
 const exHistoricoPedido = {
   quantidade: 20,
   pedidoId: 1,
@@ -74,4 +79,5 @@ export default {
   exPedido,
   exProduto,
   exHistoricoPedido,
+  exProdutos,
 };

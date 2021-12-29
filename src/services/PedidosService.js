@@ -57,7 +57,6 @@ const create = async (pedido, produtos) => {
   const id = await PedidosModel.create(pedido);
   if (id) {
     for(let i = 0; i < produtos.length; i++) {
-      console.log(id, produtos[i].quantidade, produtos[i].id, compradorId);
       await HistoricoPedidosModel.create({
         quantidade: produtos[i].quantidade,
         pedidoId: id,
@@ -65,7 +64,6 @@ const create = async (pedido, produtos) => {
         compradorId,
       });
     };
-    console.log('cheguei 2');
     const resumo = await PedidosModel.resumoPedido(id);
     const comprados = await Promise.all(
       produtos.map(async (e) => {
@@ -101,7 +99,7 @@ const getById = async (id) => {
   return Error.naoEncontradoError;
 };
 
-const updateById = (id, pedido) => {
+const updateById = async (id, pedido) => {
   const {
     parcelas,
     compradorId,
@@ -123,7 +121,7 @@ const updateById = (id, pedido) => {
 };
 
 const getResumoById = async (id) => {
-  const resumo = await PedidosModel.getResumoById(id);
+  const resumo = await PedidosModel.resumoPedido(id);
 
   if (resumo) return resumo;
 

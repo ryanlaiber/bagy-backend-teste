@@ -6,7 +6,6 @@ dotenv.config();
 const pedidoEmail = ({ cliente, pedido, montante, email }, comprados) => {
   const usuario = process.env.EMAIL;
   const senha = process.env.EMAIL_SENHA;
-  console.log(usuario, senha);
 
   let itens = '';
   

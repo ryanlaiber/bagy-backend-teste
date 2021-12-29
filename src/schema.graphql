@@ -77,6 +77,56 @@ type Produtos {
 }
 
 # ------------------------
+# Type Pedidos -----------
+type Pedido {
+  id: ID!
+  parcelas: Int!
+  dataCriacao: String!
+  compradorId: Int!
+  status: String!
+}
+
+type Pedidos {
+  result: [Pedido!]!
+}
+
+type Comprados {
+  nome: String!
+  quantidade: Int!
+  preco: Float!
+}
+
+type PedidoCriado {
+  id: ID!
+  parcelas: Int!
+  status: String!
+  itens: [Comprados]!
+  total: Float!
+}
+
+input Item {
+  quantidade: Int!
+  id: Int!
+}
+
+input paramItens {
+  produtos: [Item!]!
+}
+
+input paramPedido {
+  parcelas: Int!
+  compradorId: Int!
+  status: String!
+}
+
+type ResumoPedido {
+  cliente: String!
+  pedido: Int!
+  montante: Float!
+  email: String!
+}
+
+#-------------------------
 # Type Errors ------------
 type Error {
   path: String!
@@ -94,6 +144,12 @@ union ClienteIdResult = Cliente | objErr
 # Produtos Unions ------
 union ProdutosResult = Produtos | objErr
 union ProdutoIdResult = Produto | objErr
+# ----------------------
+# Pedidos Unions -------
+union PedidosResult = Pedidos | objErr
+union PedidoIdResult = Pedido | objErr
+union ResumoPedidoResult = ResumoPedido | objErr
+union PedidoCriadoResult = PedidoCriado | objErr
 
 
 type Query {
@@ -101,6 +157,9 @@ type Query {
   cliente(id: ID!): ClienteIdResult!
   produtos: ProdutosResult!
   produto(id: ID!): ProdutoIdResult!
+  pedidos: PedidosResult!
+  pedido(id: ID!): PedidoIdResult!
+  resumoPedido(id: ID!): ResumoPedidoResult!
 }
 
 type Mutation {
@@ -110,4 +169,7 @@ type Mutation {
   createProduto(produto: paramProduto!): ProdutoIdResult!
   updateProduto(id: ID!, dados: paramProduto): ProdutoIdResult!
   deleteProduto(id: ID!): String!
+  createPedido(pedido: paramPedido, produtos: paramItens): PedidoCriadoResult!
+  updatePedido(id: ID!, dados: paramPedido!): PedidoIdResult!
+  deletePedido(id: ID!): String!
 }

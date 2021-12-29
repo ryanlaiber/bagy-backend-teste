@@ -214,3 +214,104 @@ Deleta Produto:
 mutation {
   deleteProduto(id: 3)
 }
+
+Pedidos cadastrados:
+query {
+  pedidos {
+    ...on Pedidos {
+      result {
+        id
+        compradorId
+        dataCriacao
+        status
+      }
+    }
+  }
+}
+
+Cria Pedido:
+mutation {
+  createPedido(pedido:{
+    compradorId: 1
+    parcelas: 5
+    status: "aprovado"
+  }, produtos: {
+    produtos: [{quantidade: 1, id: 2}, {quantidade: 5, id: 1}]
+  }) {
+    ...on PedidoCriado {
+      id
+      total
+      itens {
+        quantidade
+        nome
+        preco
+      }
+      parcelas
+      status
+    }
+    ...on objErr {
+      err {
+        path
+        message
+      }
+    }
+  }
+}
+
+Update Pedido:
+mutation {
+  updatePedido(id: 8, dados:{
+    compradorId: 1
+    parcelas: 5
+    status: "enviado"
+  }) {
+    ...on Pedido {
+      id
+      compradorId
+      status
+    }
+    ...on objErr {
+      err {
+        path
+        message
+      }
+    }
+  }
+}
+
+Pedido por id:
+query {
+  pedido(id: 2) {
+    ...on Pedido {
+      id
+      parcelas
+      compradorId
+      status
+      dataCriacao
+    }
+    ...on objErr {
+      err {
+        path
+        message
+      }
+    }
+  }
+}
+
+Resumo de pedido:
+query {
+  resumoPedido(id: 2) {
+    ...on ResumoPedido {
+      montante
+      email
+      pedido
+      cliente
+    }
+    ...on objErr {
+      err {
+        path
+        message
+      }
+    }
+  }
+}

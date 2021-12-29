@@ -1,10 +1,10 @@
 import ClientesController from './controllers/ClientesController';
-// import mocs from '../mocs';
+import ProdutosController from './controllers/ProdutosController';
 
 const resolvers = {
-  ClienteResult: {
-    __resolveType(cliente) {
-      if (cliente.err) return 'objErr';
+  ClientesResult: {
+    __resolveType(clientes) {
+      if (clientes.err) return 'objErr';
       return 'Clientes';
     }
   },
@@ -16,15 +16,34 @@ const resolvers = {
     }
   },
 
+  ProdutosResult: {
+    __resolveType(produto) {
+      if (produto.err) return 'objErr';
+      return 'Produtos';
+    }
+  },
+
+  ProdutoIdResult: {
+    __resolveType(produtos) {
+      if (produtos.err) return 'objErr';
+      return 'Produto';
+    }
+  },
+
   Query: {
     clientes: ClientesController.getAll,
     cliente: ClientesController.getById,
+    produtos: ProdutosController.getAll,
+    produto: ProdutosController.getById,
   },
 
   Mutation: {
     createCliente: ClientesController.create,
     updateCliente: ClientesController.updateById,
     deleteCliente: ClientesController.deleteById,
+    createProduto: ProdutosController.create,
+    updateProduto: ProdutosController.updateById,
+    deleteProduto: ProdutosController.deleteById,
   },
 }
 

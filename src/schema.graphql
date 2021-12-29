@@ -1,3 +1,4 @@
+# Types Clientes --------------
 type Endereco {
   rua: String!
   bairro: String!
@@ -50,6 +51,33 @@ type Clientes {
   result: [oneCliente!]!
 }
 
+# --------------------
+# Types Produtos -----
+input paramProduto {
+  nome: String!
+  imagem: String!
+  descricao: String!
+  peso: Float!
+  preco: Float!
+  estoque: Int!
+}
+
+type Produto {
+  id: ID!
+  nome: String!
+  imagem: String!
+  descricao: String!
+  peso: Float!
+  preco: Float!
+  estoque: Int!
+}
+
+type Produtos {
+  result: [Produto!]!
+}
+
+# ------------------------
+# Type Errors ------------
 type Error {
   path: String!
   message: String!
@@ -58,17 +86,28 @@ type Error {
 type objErr {
   err: Error!
 }
-
-union ClienteResult = Clientes | objErr
+# -----------------------
+# Clientes Unions -------
+union ClientesResult = Clientes | objErr
 union ClienteIdResult = Cliente | objErr
+# ----------------------
+# Produtos Unions ------
+union ProdutosResult = Produtos | objErr
+union ProdutoIdResult = Produto | objErr
+
 
 type Query {
-  clientes: ClienteResult!
+  clientes: ClientesResult!
   cliente(id: ID!): ClienteIdResult!
+  produtos: ProdutosResult!
+  produto(id: ID!): ProdutoIdResult!
 }
 
 type Mutation {
   createCliente(cliente: paramCliente!): ClienteIdResult!
   updateCliente(id: ID!, dados: paramCliente!): ClienteIdResult!
   deleteCliente(id: ID!): String!
+  createProduto(produto: paramProduto!): ProdutoIdResult!
+  updateProduto(id: ID!, dados: paramProduto): ProdutoIdResult!
+  deleteProduto(id: ID!): String!
 }

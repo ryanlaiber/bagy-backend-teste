@@ -10,7 +10,7 @@ const validate = async (metodo, {
     if (checkNome) return Error.nomeUnicoError;
   } else if (metodo === 'update') {
     const checkNome = await ProdutosModel.getByNome(nome);
-    if (checkNome.id !== id) return Error.nomeUnicoError;
+    if (checkNome && checkNome.id !== id) return Error.nomeUnicoError;
   };
   switch (false) {
     case (nome):

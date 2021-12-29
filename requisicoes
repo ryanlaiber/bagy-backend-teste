@@ -108,3 +108,109 @@ mutation {
     }
   }
 }
+
+Deleta Cliente:
+mutation {
+  deleteCliente(id: 3)
+}
+
+Produtos Cadastrados:
+query {
+  produtos {
+    ... on Produtos {
+      result {
+        id
+        nome
+        preco
+        peso
+        estoque
+      }
+    }
+    ... on objErr {
+      err {
+        path
+        message
+      }
+    }
+  }
+}
+
+Produto por ID:
+query {
+  produto(id: 2) {
+    ... on Produto {
+        id
+        nome
+        preco
+        peso
+        estoque
+    }
+    ... on objErr {
+      err {
+        path
+        message
+      }
+    }
+  }
+}
+
+Criar Produto:
+mutation {
+  createProduto(produto: {
+    nome: "trem"
+    imagem: "https://imagens.com/trem"
+    descricao: "trem de 5 vagões"
+    peso: 60.65
+    preco: 20.99
+    estoque: 200
+  }) {
+    ...on Produto {
+      id
+      nome
+      descricao
+      imagem
+      peso
+      preco
+      estoque
+    }
+    ...on objErr {
+      err {
+        path
+        message
+      }
+    }
+  }
+}
+
+Update Produto:
+mutation {
+  updateProduto(id: 3, dados: {
+    nome: "Trem"
+    imagem: "https://imagens.com/trem"
+    descricao: "trem de 5 vagões"
+    peso: 60.65
+    preco: 20.99
+    estoque: 200
+  }) {
+    ...on Produto {
+      id
+      nome
+      descricao
+      imagem
+      peso
+      preco
+      estoque
+    }
+    ...on objErr {
+      err {
+        path
+        message
+      }
+    }
+  }
+}
+
+Deleta Produto:
+mutation {
+  deleteProduto(id: 3)
+}

@@ -6,6 +6,8 @@ import resolvers from './resolvers';
 
 dotenv.config();
 
+const PORT = process.env.PORT || 4000;
+
 const server = new GraphQLServer({
   typeDefs: path.resolve(__dirname, 'schema.graphql'),
   resolvers,
@@ -14,7 +16,7 @@ const server = new GraphQLServer({
 const startServer = async () => {
   const db = await openDb();
   await db.migrate({ migrationsPath: './src/dataBase/migrations' });
-  await server .start({ port: 4000 }, () => console.log('Server inicializado na porta 4000'));
+  await server .start({ port: PORT }, () => console.log(`Server inicializado na porta ${PORT}`));
 };
 
 startServer();

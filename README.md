@@ -247,3 +247,215 @@ mutation {
 ```
   
 </details>
+<h4>Delete</h4>
+<details><summary>Clientes</summary>
+
+```
+mutation {
+  deleteCliente(id: 3)
+}
+```
+
+</details>
+<details><summary>Pedidos</summary>
+
+```
+mutation {
+  deletePedido(id: 1)
+}
+```
+
+</details>
+<details><summary>Produtos</summary>
+
+```
+mutation {
+  deleteProduto(id: 1)
+}
+```
+
+</details>
+<h4>GET</h4>
+<details><summary>Clientes</summary>
+ 
+```
+query {
+  clientes {
+    ... on Cliente {
+      result {
+        id
+        nome
+        email
+        dataNasc
+        cpf
+        rua
+        bairro
+        cidade
+        numero
+        cep
+      }
+    }
+    ... on objErr {
+      err {
+        path
+        message
+      }
+    }
+  }
+}
+```
+
+</details>
+<details><summary>Cliente por ID</summary>
+  
+```
+  Cliente por ID:
+query {
+  cliente(id: 1) {
+    ... on Cliente {
+      id
+      nome
+      email
+      dataNasc
+      cpf
+      rua
+      bairro
+      cidade
+      numero
+      cep
+    }
+    ... on objErr {
+      err {
+        path
+        message
+      }
+    }
+  }
+}
+```
+  
+</details>
+<details><summary>Produtos</summary>
+  
+```
+query {
+  produtos {
+    ... on Produtos {
+      result {
+        id
+        nome
+        preco
+        peso
+        estoque
+      }
+    }
+    ... on objErr {
+      err {
+        path
+        message
+      }
+    }
+  }
+}
+```
+
+</details>
+<details><summary>Produto por ID</summary>
+  
+```
+query {
+  produto(id: 2) {
+    ... on Produto {
+        id
+        nome
+        preco
+        peso
+        estoque
+    }
+    ... on objErr {
+      err {
+        path
+        message
+      }
+    }
+  }
+}
+```
+  
+</details>
+<details><summary>Pedidos</summary>
+  
+```
+query {
+  pedidos {
+    ...on Pedidos {
+      result {
+        id
+        compradorId
+        dataCriacao
+        status
+      }
+    }
+    ... on objErr {
+      err {
+        path
+        message
+      }
+  }
+}
+```
+  
+</details>
+<details><summary>Pedido por ID</summary>
+
+```
+query {
+  pedido(id: 2) {
+    ...on Pedido {
+      id
+      parcelas
+      compradorId
+      status
+      dataCriacao
+    }
+    ...on objErr {
+      err {
+        path
+        message
+      }
+    }
+  }
+}
+```
+  
+</details>
+<details><summary>Resumo de pedido</summary>
+
+```
+query {
+  resumoPedido(id: 2) {
+    ...on ResumoPedido {
+      montante
+      email
+      pedido
+      cliente
+    }
+    ...on objErr {
+      err {
+        path
+        message
+      }
+    }
+  }
+}
+```
+  
+</details>
+
+<h2>Tecnologias Utilizadas</h2>
+  <ul>
+    <li>NodeJS</li>
+    <li>GraphQL</li>
+    <li>SQLite</li>
+  </ul>
+

@@ -61,6 +61,15 @@ estoque = produtos.estoque - NEW.quantidade
 WHERE produtos.id = NEW.produtoId;
 END;
 
+CREATE TRIGGER deleteCliente BEFORE DELETE   
+ON clientes
+BEGIN  
+DELETE FROM pedidos
+WHERE pedidos.compradorId = OLD.id;
+DELETE FROM historicoPedidos
+WHERE historicoPedidos.compradorId = OLD.id;
+END;
+
 -- Down
 
 DROP TABLE clientes;

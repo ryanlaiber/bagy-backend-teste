@@ -73,3 +73,6 @@ END;
 -- Down
 
 DROP TABLE clientes;
+DROP TABLE produtos;
+DROP TABLE pedidos;
+DROP TABLE historicoPedidos;

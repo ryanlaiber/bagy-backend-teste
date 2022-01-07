@@ -167,9 +167,9 @@ type Mutation {
   updateCliente(id: ID!, dados: paramCliente!): ClienteIdResult!
   deleteCliente(id: ID!): String!
   createProduto(produto: paramProduto!): ProdutoIdResult!
-  updateProduto(id: ID!, dados: paramProduto): ProdutoIdResult!
+  updateProduto(id: ID!, dados: paramProduto!): ProdutoIdResult!
   deleteProduto(id: ID!): String!
-  createPedido(pedido: paramPedido, produtos: paramItens): PedidoCriadoResult!
+  createPedido(pedido: paramPedido!, produtos: paramItens!): PedidoCriadoResult!
   updatePedido(id: ID!, dados: paramPedido!): PedidoIdResult!
   deletePedido(id: ID!): String!
 }

@@ -1,7 +1,4 @@
 import nodemailer from 'nodemailer';
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 const pedidoEmail = ({ cliente, pedido, montante, email }, comprados) => {
   const usuario = process.env.EMAIL;

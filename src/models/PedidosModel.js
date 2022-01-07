@@ -95,15 +95,14 @@ const resumoPedido = async (pedidoId) => {
     c.nome AS cliente,
     c.email AS email,
     h.pedidoId AS pedido,
-    (SELECT SUM(p.preco*hs.quantidade) FROM produtos AS p
-    INNER JOIN historicoPedidos AS hs ON p.id = hs.produtoId
-    WHERE hs.compradorId = c.id
-    GROUP BY hs.pedidoId) AS montante
+    (SELECT SUM (pr.preco * hs.quantidade) FROM historicoPedidos AS hs
+		INNER JOIN produtos AS pr ON hs.produtoId = pr.id
+		WHERE hs.pedidoId = ?) AS montante
     FROM clientes AS c
     INNER JOIN historicoPedidos AS h ON c.id = h.compradorId
     WHERE h.pedidoId = ?
     GROUP BY pedido`,
-    [pedidoId],
+    [pedidoId, pedidoId],
     (err) => {
       if (err) return {
         path: 'model pedidos getByCompradorId',

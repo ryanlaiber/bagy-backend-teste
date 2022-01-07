@@ -14,11 +14,13 @@ const validate  = async (metodo, {
   const cliente = await ClientesModel.getByEmail(email);
   if (metodo === 'create') {
     emailUnico = cliente.length === 0;
-  } else if (id === cliente[0].id) {
+  } else if (metodo === 'create' && id === cliente[0].id) {
     emailUnico = true;
   };
+  
   const dataRegex = /^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/;
   const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+  
   switch (false) {
     case (nome):
       return Error.nomeError;
@@ -112,6 +114,7 @@ const updateById = async (id, cliente) => {
     cep,
     numero,
   } = cliente;
+  console.log(id);
   const notValid = await validate('update', cliente, id);
   if (notValid) return notValid;
 
